@@ -114,26 +114,29 @@ main {
 /* =========================================================
    6. DESKTOP NAVBAR LAYOUT
    Controls:
-   - positions page tabs toward the right
+   - positions page tabs toward the right on large screens
    - keeps login on the far right
+   - only applies when hamburger menu is not being used
 ========================================================= */
-#basic-navbar-nav {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
+@media (min-width: 992px) {
+  #basic-navbar-nav {
+    display: flex !important;
+    justify-content: flex-end;
+    align-items: center;
+  }
 
-.molokai-center-nav {
-  display: flex;
-  justify-content: flex-end;
-  gap: 1.75rem;
-  margin-left: auto;
-  margin-right: 2.5rem;
-}
+  .molokai-center-nav {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1.75rem;
+    margin-left: auto;
+    margin-right: 2.5rem;
+  }
 
-.molokai-auth-nav {
-  display: flex;
-  justify-content: flex-end;
+  .molokai-auth-nav {
+    display: flex;
+    justify-content: flex-end;
+  }
 }
 
 /* =========================================================
@@ -218,32 +221,98 @@ main {
 /* =========================================================
    10. MOBILE NAVBAR LAYOUT
    Controls:
-   - stacked nav layout when screen gets smaller
-   - centers links/dropdown in mobile menu
+   - lets Bootstrap hide/show the hamburger menu correctly
+   - makes the hamburger menu a small dropdown panel
+   - positions the dropdown under the hamburger on the right
 ========================================================= */
 @media (max-width: 991px) {
+  .molokai-navbar {
+    position: relative;
+    z-index: 20;
+  }
+
+  .molokai-navbar-container {
+    position: relative;
+  }
+
+  #basic-navbar-nav.collapse:not(.show) {
+    display: none !important;
+  }
+
+  #basic-navbar-nav.show,
+  #basic-navbar-nav.collapsing {
+    display: block !important;
+  }
+
   #basic-navbar-nav {
-    display: block;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 170px;
+    max-width: calc(100vw - 2rem);
+    background: rgba(255, 253, 241, 0.96);
+    border: 1px solid rgba(23, 63, 28, 0.14);
+    border-radius: 0.85rem;
+    box-shadow: 0 14px 30px rgba(23, 63, 28, 0.14);
+    margin-top: 0.65rem;
+    padding: 0.75rem 0.85rem;
+    text-align: right;
   }
 
   .molokai-center-nav {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
+    align-items: stretch;
+    gap: 0.15rem;
     margin-left: 0;
     margin-right: 0;
-    padding-top: 0.75rem;
+    padding-top: 0;
   }
 
   .molokai-auth-nav {
-    min-width: 0;
-    justify-content: center;
-    padding-top: 0.5rem;
-    padding-bottom: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-end;
+    border-top: 1px solid rgba(23, 63, 28, 0.12);
+    margin-top: 0.45rem;
+    padding-top: 0.45rem;
+    padding-bottom: 0;
+  }
+
+  .molokai-nav-link,
+  .molokai-auth-dropdown > .nav-link {
+    display: block;
+    width: 100%;
+    color: var(--molokai-green) !important;
+    font-size: 0.95rem;
+    padding: 0.45rem 0.3rem !important;
+    text-align: right;
+  }
+
+  .molokai-nav-link.active {
+    border-bottom: none;
+    color: var(--molokai-green) !important;
+    background-color: rgba(217, 169, 25, 0.13);
+    border-radius: 0.45rem;
+  }
+
+  .molokai-auth-dropdown .dropdown-menu {
+    position: static !important;
+    transform: none !important;
+    width: 100%;
+    margin-top: 0.35rem;
+    text-align: right;
+    background-color: rgba(255, 253, 241, 0.98);
+    box-shadow: none;
+  }
+
+  .molokai-auth-dropdown .dropdown-item {
+    justify-content: flex-end;
+    text-align: right;
+    font-size: 0.9rem;
   }
 }
-
 /* =========================================================
    11. HOME PAGE OVERALL BACKGROUND
    Controls:
