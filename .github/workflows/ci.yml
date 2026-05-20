@@ -27,7 +27,8 @@ jobs:
           - 5432:5432
     
     env:
-      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/playwright_test
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/plumeriafarm_test?schema=public
+      DIRECT_URL: postgresql://postgres:postgres@localhost:5432/plumeriafarm_test?schema=public
       AUTH_SECRET: thisisanauthsecretfortestingonly
       AUTH_URL: http://localhost:3000
       PLAYWRIGHT_TEST_BASE_URL: http://localhost:3000
