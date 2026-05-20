@@ -1,49 +1,56 @@
 import { test, expect } from './auth-utils';
 
+const BASE_URL = process.env.PLAYWRIGHT_TEST_BASE_URL || 'http://localhost:3000';
+
 test.slow();
-test('test access to admin page', async ({ getUserPage }) => {
-  // Call the getUserPage fixture with admin signin info to get authenticated session for admin
+
+test('admin can authenticate and view Molokai Plumerias homepage', async ({ getUserPage }) => {
   const adminPage = await getUserPage('admin@foo.com', 'changeme');
 
-  // Navigate to the home page and wait for post-login indicator
-  await adminPage.goto('http://localhost:3000/');
+  await adminPage.goto(BASE_URL);
+  await adminPage.waitForLoadState('networkidle');
+
   await expect(
     adminPage.getByRole('button', { name: 'admin@foo.com' })
   ).toBeVisible({ timeout: 10000 });
 
-  // Check for navigation elements
   await expect(
-    adminPage.getByRole('link', { name: 'Next.js Application Template' })
-  ).toBeVisible({ timeout: 5000 });
+    adminPage.getByRole('heading', { name: /Aloha a ho.okipa/i })
+  ).toBeVisible({ timeout: 10000 });
+
   await expect(
-    adminPage.getByRole('link', { name: 'Add Stuff' })
-  ).toBeVisible({ timeout: 5000 });
-  await expect(
-    adminPage.getByRole('link', { name: 'List Stuff' })
-  ).toBeVisible({ timeout: 5000 });
-  await expect(
-    adminPage.getByRole('link', { name: 'Admin' })
+    adminPage.getByText('Molokai Grown Since 1983').first()
   ).toBeVisible({ timeout: 5000 });
 
-  // Test Add Stuff adminPage
-  await adminPage.getByRole('link', { name: 'Add Stuff' }).click();
   await expect(
-    adminPage.getByRole('heading', { name: 'Add Stuff' })
+    adminPage.getByText('Beautiful island-grown plumerias with care, color, and aloha.').first()
   ).toBeVisible({ timeout: 5000 });
 
-  // Test List Stuff adminPage
-  await adminPage.getByRole('link', { name: 'List Stuff' }).click();
   await expect(
-    adminPage.getByRole('heading', { name: 'Stuff' })
+    adminPage.getByRole('link', { name: 'About' }).first()
   ).toBeVisible({ timeout: 5000 });
 
-  // Test Admin adminPage
-  await adminPage.getByRole('link', { name: 'Admin' }).click();
   await expect(
-    adminPage.getByRole('heading', { name: 'List Stuff Admin' })
-  ).toBeVisible({ timeout: 5000 });
-  await expect(
-    adminPage.getByRole('heading', { name: 'List Users Admin' })
+    adminPage.getByRole('link', { name: 'Care Instructions' }).first()
   ).toBeVisible({ timeout: 5000 });
 
+  await expect(
+    adminPage.getByRole('link', { name: 'Flowers' }).first()
+  ).toBeVisible({ timeout: 5000 });
+
+  await expect(
+    adminPage.getByRole('link', { name: 'Events' }).first()
+  ).toBeVisible({ timeout: 5000 });
+
+  await expect(
+    adminPage.getByRole('link', { name: 'Contact Us' }).first()
+  ).toBeVisible({ timeout: 5000 });
+
+  await expect(
+    adminPage.getByRole('heading', { name: 'Rooted in Molokai, grown with care.' })
+  ).toBeVisible({ timeout: 5000 });
+
+  await expect(
+    adminPage.getByRole('heading', { name: 'Customer Reviews' })
+  ).toBeVisible({ timeout: 5000 });
 });
