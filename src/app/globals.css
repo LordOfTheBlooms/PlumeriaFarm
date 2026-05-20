@@ -1,14 +1,771 @@
+/* =========================================================
+   1. GLOBAL COLOR VARIABLES + PAGE RESET
+   Controls:
+   - main site color palette
+   - base page spacing
+   - base page height
+========================================================= */
 html,
 body {
   --bs-light-rgb: 236, 236, 236;
+
+  --molokai-navbar-background: #f7efcc;
+  --molokai-page-background: #f7efcc;
+  --molokai-green: #173f1c;
+  --molokai-leaf: #31591f;
+  --molokai-gold: #d9a919;
+  --molokai-cream: #fff8dc;
+  --molokai-soft-white: #fffdf1;
+  --molokai-soft-manila: #fff6cf;
+  --molokai-strong-manila: #f7e79a;
+
   box-sizing: border-box;
   height: 100%;
   padding: 0;
   margin: 0;
 }
+
+/* =========================================================
+   2. UNIVERSAL BOX SIZING
+   Controls:
+   - makes padding/border sizing consistent everywhere
+========================================================= */
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+/* =========================================================
+   3. BASE BODY / WRAPPER / MAIN
+   Controls:
+   - overall page background
+   - full-height layout
+   - keeps footer at bottom
+========================================================= */
+body {
+  background:
+    linear-gradient(
+      180deg,
+      var(--molokai-navbar-background) 0%,
+      #f4df7d 16%,
+      #fff1a8 34%,
+      #fffdf1 58%,
+      #fff6cf 78%,
+      #f7e79a 100%
+    );
+}
+
 .wrapper {
   box-sizing: border-box;
   min-height: 100%;
   display: flex;
   flex-direction: column;
+}
+
+main {
+  flex: 1;
+  background: transparent;
+}
+
+/* =========================================================
+   4. NAVBAR CONTAINER
+   Controls:
+   - navbar background
+   - navbar height / thickness
+   - border below navbar
+========================================================= */
+.molokai-navbar {
+  background: transparent;
+  border-bottom: none;
+  min-height: 58px;
+  padding-top: 0.15rem;
+  padding-bottom: 0.15rem;
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+}
+
+.molokai-navbar-container {
+  display: flex;
+  align-items: center;
+}
+
+/* =========================================================
+   5. NAVBAR LOGO / BRAND AREA
+   Controls:
+   - left logo placement
+   - logo size
+========================================================= */
+.molokai-brand {
+  display: flex;
+  align-items: center;
+  margin-right: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.molokai-navbar-logo {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  background-color: transparent;
+  border: none;
+}
+
+/* =========================================================
+   6. DESKTOP NAVBAR LAYOUT
+   Controls:
+   - positions page tabs toward the right
+   - keeps login on the far right
+========================================================= */
+#basic-navbar-nav {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.molokai-center-nav {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.75rem;
+  margin-left: auto;
+  margin-right: 2.5rem;
+}
+
+.molokai-auth-nav {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* =========================================================
+   7. NAVBAR LINK TEXT
+   Controls:
+   - tab font
+   - tab color
+   - active tab underline
+========================================================= */
+.molokai-nav-link,
+.molokai-auth-dropdown > .nav-link {
+  color: var(--molokai-green) !important;
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.02rem;
+  text-transform: none;
+  font-size: 0.82rem;
+}
+
+.molokai-nav-link:hover,
+.molokai-auth-dropdown > .nav-link:hover {
+  color: var(--molokai-leaf) !important;
+}
+
+.molokai-nav-link.active {
+  color: var(--molokai-green) !important;
+  border-bottom: 2px solid var(--molokai-gold);
+}
+
+/* =========================================================
+   8. LOGIN DROPDOWN MENU
+   Controls:
+   - dropdown background
+   - dropdown text style
+   - dropdown hover color
+========================================================= */
+.molokai-auth-dropdown .dropdown-menu {
+  background-color: var(--molokai-navbar-background);
+  border: 1px solid rgba(23, 63, 28, 0.25);
+  border-radius: 0.5rem;
+  padding: 0.4rem;
+}
+
+.molokai-auth-dropdown .dropdown-item {
+  color: var(--molokai-green);
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.02rem;
+  border-radius: 0.4rem;
+  padding: 0.55rem 0.75rem;
+}
+
+.molokai-auth-dropdown .dropdown-item:hover,
+.molokai-auth-dropdown .dropdown-item:focus {
+  color: var(--molokai-green);
+  background-color: rgba(217, 169, 25, 0.16);
+}
+
+/* =========================================================
+   9. HAMBURGER MENU BUTTON
+   Controls:
+   - removes border / outline around hamburger icon
+========================================================= */
+.molokai-navbar-toggle {
+  border: none;
+  box-shadow: none;
+  padding: 0.25rem 0.5rem;
+}
+
+.molokai-navbar-toggle:focus,
+.molokai-navbar-toggle:active,
+.molokai-navbar-toggle:focus-visible {
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+.molokai-navbar-toggle .navbar-toggler-icon {
+  box-shadow: none;
+}
+
+/* =========================================================
+   10. MOBILE NAVBAR LAYOUT
+   Controls:
+   - stacked nav layout when screen gets smaller
+   - centers links/dropdown in mobile menu
+========================================================= */
+@media (max-width: 991px) {
+  #basic-navbar-nav {
+    display: block;
+  }
+
+  .molokai-center-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: 0;
+    margin-right: 0;
+    padding-top: 0.75rem;
+  }
+
+  .molokai-auth-nav {
+    min-width: 0;
+    justify-content: center;
+    padding-top: 0.5rem;
+    padding-bottom: 0.75rem;
+  }
+}
+
+/* =========================================================
+   11. HOME PAGE OVERALL BACKGROUND
+   Controls:
+   - homepage wrapper
+   - keeps body gradient visible behind homepage
+========================================================= */
+.molokai-home-page {
+  flex: 1;
+  background: transparent;
+}
+
+/* =========================================================
+   12. TOP HERO SECTION WITH PLUMERIA BANNER
+   Controls:
+   - first large body section
+   - keeps the same radial gradient background
+   - places PlumeriaBanner.png at the bottom as a wide strip
+   - keeps text above the plant image
+   - stretches the image wider/shorter without cutting it off
+========================================================= */
+.molokai-logo-hero-section {
+  position: relative;
+  min-height: 590px;
+  padding: 5rem 1.5rem 15rem;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(255, 253, 241, 0.98) 0%,
+      rgba(255, 246, 207, 0.92) 28%,
+      rgba(247, 231, 154, 0.68) 58%,
+      rgba(247, 231, 154, 0.18) 100%
+    );
+}
+
+.molokai-logo-hero-section::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 100%;
+  height: 430px;
+  transform: translateX(-50%);
+  background-image: url('/img/PlumeriaBannerStretched.png');
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: 100% auto;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.molokai-logo-hero {
+  position: relative;
+  z-index: 2;
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.molokai-logo-hero h1 {
+  color: var(--molokai-green);
+  font-size: clamp(2rem, 4vw, 4rem);
+  font-weight: 500;
+  line-height: 0.95;
+  margin-bottom: 1.25rem;
+}
+
+.molokai-hero-subtitle {
+  color: rgba(23, 63, 28, 0.78);
+  font-size: clamp(1.15rem, 2vw, 1.55rem);
+  max-width: 760px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* =========================================================
+   13. SMALL GOLD LABEL TEXT
+   Controls:
+   - "Molokai Grown Since 1983"
+   - "About the Farm"
+   - "Customer Reviews"
+========================================================= */
+.molokai-eyebrow {
+  color: var(--molokai-gold);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.16rem;
+  text-transform: uppercase;
+  margin-bottom: 0.55rem;
+}
+
+/* =========================================================
+   14. GENERIC HOMEPAGE SECTION SPACING
+   Controls:
+   - top and bottom spacing for each main section
+========================================================= */
+.molokai-content-section {
+  padding: 5rem 1.5rem;
+}
+
+/* =========================================================
+   15. FIRST CONTENT SECTION BACKGROUND
+   Controls:
+   - background fade behind the "About the Farm" text row
+========================================================= */
+.molokai-section-light {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 253, 241, 0.18) 0%,
+      rgba(255, 253, 241, 0.92) 100%
+    );
+}
+
+/* =========================================================
+   16. MIDDLE CARD SECTION BACKGROUND
+   Controls:
+   - background fade behind About / Care / Flowers cards
+========================================================= */
+.molokai-section-warm {
+  background:
+    linear-gradient(
+      180deg,
+      var(--molokai-soft-white) 0%,
+      var(--molokai-soft-manila) 45%,
+      var(--molokai-strong-manila) 100%
+    );
+}
+
+/* =========================================================
+   17. LARGE SECTION HEADINGS
+   Controls:
+   - big green headings like "Rooted in Molokai..."
+========================================================= */
+.molokai-content-section h2 {
+  color: var(--molokai-green);
+  font-size: clamp(2rem, 4vw, 3.3rem);
+  font-weight: 500;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+
+/* =========================================================
+   18. PARAGRAPH TEXT IN MAIN CONTENT SECTIONS
+   Controls:
+   - regular paragraph styling in homepage sections
+========================================================= */
+.molokai-section-text {
+  color: rgba(23, 63, 28, 0.82);
+  font-size: 1.08rem;
+  line-height: 1.8;
+  margin-bottom: 0;
+}
+
+/* =========================================================
+   19. INFO CARDS
+   Controls:
+   - About / Care Instructions / Flowers boxes
+========================================================= */
+.molokai-info-card {
+  height: 100%;
+  background-color: rgba(255, 253, 241, 0.7);
+  border: 1px solid rgba(23, 63, 28, 0.12);
+  border-radius: 1.25rem;
+  padding: 2rem;
+  box-shadow: 0 12px 26px rgba(23, 63, 28, 0.08);
+}
+
+.molokai-info-card h3 {
+  color: var(--molokai-green);
+  font-size: 1.35rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+}
+
+.molokai-info-card p {
+  color: rgba(23, 63, 28, 0.78);
+  line-height: 1.7;
+  margin-bottom: 0;
+}
+
+/* =========================================================
+   INFO CARD LINKS
+   Controls:
+   - makes homepage cards clickable
+   - removes default link underline
+   - adds hover effect
+========================================================= */
+.molokai-info-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.molokai-info-card-link:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px rgba(23, 63, 28, 0.12);
+  border-color: rgba(23, 63, 28, 0.24);
+  text-decoration: none;
+}
+
+.molokai-info-card-link:hover h3 {
+  color: var(--molokai-leaf);
+}
+
+.molokai-info-card-link:hover p {
+  color: rgba(23, 63, 28, 0.9);
+}
+
+/* =========================================================
+   20. REVIEW SECTION BACKGROUND
+   Controls:
+   - background fade behind rotating quote section
+========================================================= */
+.molokai-review-section {
+  background:
+    linear-gradient(
+      180deg,
+      var(--molokai-strong-manila) 0%,
+      var(--molokai-soft-manila) 42%,
+      var(--molokai-soft-white) 100%
+    );
+  padding-bottom: 6rem;
+}
+
+/* =========================================================
+   21. REVIEW PANEL
+   Controls:
+   - the big rounded review box
+========================================================= */
+.molokai-review-panel {
+  max-width: 980px;
+  min-height: 360px;
+  margin: 0 auto;
+  background-color: rgba(255, 253, 241, 0.72);
+  border: 1px solid rgba(23, 63, 28, 0.14);
+  border-radius: 2rem;
+  padding: 4rem 2rem;
+  text-align: center;
+  box-shadow: 0 14px 34px rgba(23, 63, 28, 0.08);
+}
+
+/* =========================================================
+   22. FIVE STARS ABOVE REVIEWS
+   Controls:
+   - star row color / spacing / size
+========================================================= */
+.molokai-stars {
+  color: var(--molokai-gold);
+  font-size: 1.4rem;
+  letter-spacing: 0.2rem;
+  margin-bottom: 2rem;
+}
+
+/* =========================================================
+   23. REVIEW ROTATOR CONTAINER
+   Controls:
+   - area where rotating quotes sit
+========================================================= */
+.molokai-review-rotator {
+  position: relative;
+  min-height: 130px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* =========================================================
+   24. INDIVIDUAL REVIEW QUOTES
+   Controls:
+   - quote size / color / animation
+========================================================= */
+.molokai-review {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  color: var(--molokai-green);
+  font-size: clamp(1.35rem, 2.5vw, 2rem);
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 0;
+  animation: molokaiReviewFade 18s infinite;
+}
+
+.molokai-review-one {
+  animation-delay: 0s;
+}
+
+.molokai-review-two {
+  animation-delay: 6s;
+}
+
+.molokai-review-three {
+  animation-delay: 12s;
+}
+
+/* =========================================================
+   25. SMALL NOTE UNDER REVIEWS
+   Controls:
+   - note reminding you to replace placeholder reviews later
+========================================================= */
+.molokai-review-note {
+  color: rgba(23, 63, 28, 0.55);
+  font-size: 0.85rem;
+  margin-top: 2rem;
+}
+
+/* =========================================================
+   26. REVIEW FADE ANIMATION
+   Controls:
+   - how the review quotes fade in/out
+========================================================= */
+@keyframes molokaiReviewFade {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  8% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  28% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  36% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+/* =========================================================
+   27. MOBILE HOMEPAGE STYLES
+   Controls:
+   - smaller hero section on mobile
+   - smaller plant image on mobile
+   - review area height on mobile
+========================================================= */
+@media (max-width: 768px) {
+  .molokai-logo-hero-section {
+    min-height: 560px;
+    padding: 4rem 1rem 13rem;
+  }
+
+  .molokai-logo-hero-section::after {
+    height: 240px;
+    background-size: 100% 100%;
+  }
+
+  .molokai-content-section {
+    padding: 3.5rem 1rem;
+  }
+
+  .molokai-review-panel {
+    padding: 3rem 1.5rem;
+    border-radius: 1.25rem;
+  }
+
+  .molokai-review-rotator {
+    min-height: 180px;
+  }
+}
+
+/* =========================================================
+   28. FOOTER
+   Controls:
+   - footer background gradient
+   - footer height
+   - footer columns
+   - footer headings
+   - footer links
+   - contact/social/hours area
+========================================================= */
+.molokai-footer {
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      #c0d269 0%,
+      #9eaf5a 28%,
+      #8ea64f 55%,
+      #6f8e3e 80%,
+      #557633 100%
+    );
+  color: var(--molokai-soft-white);
+  padding: 1rem 1.5rem 0.45rem;
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+}
+.molokai-footer-heading {
+  color: var(--molokai-soft-white);
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.molokai-footer-line {
+  width: 100%;
+  height: 1px;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 253, 241, 0.35),
+      rgba(255, 253, 241, 0.05)
+    );
+  margin-bottom: 0.75rem;
+}
+
+.molokai-footer-link-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.molokai-footer-link {
+  color: #e4efc8;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  width: fit-content;
+  font-size: 0.76rem;
+  line-height: 1.25;
+}
+
+.molokai-footer-link:hover {
+  color: var(--molokai-gold);
+  text-decoration: underline;
+}
+
+.molokai-footer-icon {
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+.molokai-footer-text-block {
+  color: #e4efc8;
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+  font-size: 0.76rem;
+}
+
+.molokai-footer-text-block p {
+  margin: 0;
+  line-height: 1.25;
+}
+
+.molokai-footer-business-name {
+  color: var(--molokai-soft-white);
+  font-weight: 700;
+  margin-bottom: 0.2rem !important;
+}
+
+.molokai-kayak-badge {
+  width: 125px;
+  background:
+    linear-gradient(
+      135deg,
+      #000000 0%,
+      #181818 50%,
+      #030303 100%
+    );
+  color: white;
+  border-radius: 0.45rem;
+  padding: 0.75rem 0.55rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.12rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.24);
+}
+
+.molokai-kayak-badge span {
+  font-size: 0.48rem;
+  font-weight: 600;
+}
+
+.molokai-kayak-badge strong {
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.16rem;
+}
+
+.molokai-footer-bottom {
+  color: rgba(255, 253, 241, 0.62);
+  text-align: center;
+  font-size: 0.68rem;
+  margin-top: 1.35rem;
+  padding-top: 0.7rem;
+  border-top: 1px solid rgba(255, 253, 241, 0.16);
+}
+
+/* =========================================================
+   29. MOBILE FOOTER
+   Controls:
+   - footer spacing on small screens
+========================================================= */
+@media (max-width: 768px) {
+  .molokai-footer {
+    text-align: center;
+    padding: 1.75rem 1rem 0.85rem;
+  }
+
+  .molokai-footer-link {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .molokai-kayak-badge {
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
