@@ -10,6 +10,20 @@ if (!connectionString) {
 
 const getConnectionString = (url: string) => {
   const parsedUrl = new URL(url);
+  const host = parsedUrl.hostname;
+
+  const isLocalDatabase =
+    host === 'localhost'
+    || host === '127.0.0.1'
+    || host === 'postgres';
+
+  if (isLocalDatabase) {
+    parsedUrl.searchParams.delete('sslmode');
+    parsedUrl.searchParams.delete('sslaccept');
+    parsedUrl.searchParams.delete('uselibpqcompat');
+    return parsedUrl.toString();
+  }
+
   const sslMode = parsedUrl.searchParams.get('sslmode');
 
   if (!sslMode) {
@@ -24,9 +38,7 @@ const getConnectionString = (url: string) => {
 
 const adapter = new PrismaPg({
   connectionString: getConnectionString(connectionString),
-  ssl: {
-    rejectUnauthorized: false,
-  },
+  
 });
 
 const prisma = new PrismaClient({ adapter });
